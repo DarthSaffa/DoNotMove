@@ -1,14 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-public class FirstPersonController : MonoBehaviour {
+public class Player1Controller : MonoBehaviour {
 	
 	Transform myTransform;
-	public static float movementSpeed = 12;
+	public static float movementSpeed = 20;
 	float diagMovementSpeed;
 	public static float currentMove;
 	int mouseSensitivity = 5;
-	int jumpSpeed = 6;
+	int jumpSpeed = 20;
 
 	float verticalRotation = 0;
 	public float upDownRange = 90;
@@ -63,7 +63,7 @@ public class FirstPersonController : MonoBehaviour {
 		}
 
 		//Applying gravity to the controller
-		verticalVelocity += Physics.gravity.y * Time.deltaTime;
+		verticalVelocity += Physics.gravity.y * Time.deltaTime * 2;
 
 		//Jumping
 		if(characterController.isGrounded && Input.GetButton("Jump") ) {
