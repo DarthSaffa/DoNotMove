@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player1Pistol : MonoBehaviour {
+public class Player1Machinegun : MonoBehaviour {
 
 	Transform myTransform;
 	RaycastHit hit;
@@ -11,11 +11,15 @@ public class Player1Pistol : MonoBehaviour {
 	public GameObject bulletHole;
 	float distanceFromWall = 0.02f;
 
-	float accuracy = 0.05f;
+	//Fire rate and accuracy
+	float accuracy = 0.08f;
+	float fireRate = 0.075f;
+	float nextFire = 0;
 
 	// Use this for initialization
 	void Start () {
 
+		//Memes
 		myTransform = transform;
 	
 	}
@@ -24,8 +28,8 @@ public class Player1Pistol : MonoBehaviour {
 	void Update () {
 
 		//Firing the raycast
-		if(Input.GetButtonDown("Fire1")){
-
+		if(Input.GetButton("Fire1") && Time.time > nextFire){
+			nextFire = Time.time + fireRate;
 			//Accuracy
 			Vector3 direction = Vector3.forward;
 			direction.x += Random.Range (-accuracy,accuracy);
@@ -37,7 +41,6 @@ public class Player1Pistol : MonoBehaviour {
 
 				//Instantiating the bullethole
 				Instantiate(bulletHole, hit.point + (hit.normal * distanceFromWall), Quaternion.LookRotation(hit.normal));
-				Debug.Log("Memes");
 			}
 		}
 	}
