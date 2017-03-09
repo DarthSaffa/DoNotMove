@@ -7,17 +7,24 @@ public class Player1Pistol : MonoBehaviour {
 	RaycastHit hit;
 	float maxDist = 10000;
 
+	float accuracy = 0.05f;
+
 	//Bullethole
 	public GameObject bulletHole;
 	float distanceFromWall = 0.02f;
 
-	float accuracy = 0.05f;
+	//LineRenderer
+	LineRenderer myLine;
+	float myLineCurrentCooldown = 0;
+	float myLineMaxCooldown = 0.075f;
+	GameObject barrel;
 
 	// Use this for initialization
 	void Start () {
 
 		myTransform = transform;
-	
+		myLine = GetComponent<LineRenderer>();
+		barrel = GameObject.Find ("Barrel");
 	}
 
 	// Update is called once per frame
@@ -25,6 +32,7 @@ public class Player1Pistol : MonoBehaviour {
 
 		//Firing the raycast
 		if(Input.GetButtonDown("Fire1")){
+			myLineCurrentCooldown = myLineMaxCooldown;
 
 			//Accuracy
 			Vector3 direction = Vector3.forward;
@@ -37,8 +45,21 @@ public class Player1Pistol : MonoBehaviour {
 
 				//Instantiating the bullethole
 				Instantiate(bulletHole, hit.point + (hit.normal * distanceFromWall), Quaternion.LookRotation(hit.normal));
-				Debug.Log("Memes");
 			}
 		}
+
+		//Making the line cooldown go down
+		myLineCurrentCooldown -= Time.deltaTime;
+
+		//Enabling and disabling line renderer
+		if (myLineCurrentCooldown > 0) {
+			myLine.enabled = true;
+		} else {
+			myLine.enabled = false;
+		}
+
+		//Setting the position of the line
+		myLine.SetPosition (0, barrel.transform.position);
+		myLine.SetPosition (1, hit.point);
 	}
 }

@@ -30,6 +30,7 @@ public class Player1Shotgun : MonoBehaviour {
 		//Firing the raycast
 		if(Input.GetButtonDown("Fire1") && Time.time > nextFire){
 			nextFire = Time.time + fireRate;
+
 			for (int i = 0; i < 5; i++) {
 				//Accuracy
 				Vector3 direction = Vector3.forward;

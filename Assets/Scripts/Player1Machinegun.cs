@@ -19,7 +19,7 @@ public class Player1Machinegun : MonoBehaviour {
 	//LineRenderer
 	LineRenderer myLine;
 	float myLineCurrentCooldown = 0;
-	float myLineMaxCooldown = 0.075f;
+	float myLineMaxCooldown = 0.05f;
 	GameObject barrel;
 
 	// Use this for initialization
