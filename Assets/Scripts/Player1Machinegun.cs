@@ -36,7 +36,7 @@ public class Player1Machinegun : MonoBehaviour {
 	void Update () {
 
 		//Firing the raycast
-		if(Input.GetButton("Fire1") && Time.time > nextFire){
+		if(Input.GetButton("Shoot") && Time.time > nextFire){
 			myLineCurrentCooldown = myLineMaxCooldown;
 			nextFire = Time.time + fireRate;
 			//Accuracy

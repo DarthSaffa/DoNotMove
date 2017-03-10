@@ -31,7 +31,7 @@ public class Player1Pistol : MonoBehaviour {
 	void Update () {
 
 		//Firing the raycast
-		if(Input.GetButtonDown("Fire1")){
+		if(Input.GetButtonDown("Shoot")){
 			myLineCurrentCooldown = myLineMaxCooldown;
 
 			//Accuracy

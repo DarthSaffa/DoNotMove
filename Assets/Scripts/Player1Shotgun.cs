@@ -28,7 +28,7 @@ public class Player1Shotgun : MonoBehaviour {
 	void Update () {
 
 		//Firing the raycast
-		if(Input.GetButtonDown("Fire1") && Time.time > nextFire){
+		if(Input.GetButtonDown("Shoot") && Time.time > nextFire){
 			nextFire = Time.time + fireRate;
 
 			for (int i = 0; i < 5; i++) {
