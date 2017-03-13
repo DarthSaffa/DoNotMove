@@ -4,10 +4,10 @@ using System.Collections;
 public class Player1Controller : MonoBehaviour {
 	
 	Transform myTransform;
-	public static float movementSpeed = 20;
+	public static float movementSpeed = 30;
 	float diagMovementSpeed;
 	public static float currentMove;
-	int mouseSensitivity = 5;
+	float mouseSensitivity = 7.5f;
 	int jumpSpeed = 20;
 
 	float verticalRotation = 0;
@@ -16,12 +16,17 @@ public class Player1Controller : MonoBehaviour {
 	float verticalVelocity = 0;
 	
 	CharacterController characterController;
+
+	public string p1orp2;
+
+	GameObject myCam;
 	
 	// Use this for initialization
 	void Start () {
 
 		myTransform = transform;
 		characterController = GetComponent<CharacterController>();
+		myCam = GameObject.Find (p1orp2 + "Camera");
 
 		//Locking the cursor
 		Cursor.lockState = CursorLockMode.Locked;
@@ -37,36 +42,36 @@ public class Player1Controller : MonoBehaviour {
 		// Rotation
 
 		//Horizontal rotation
-		float rotLeftRight = Input.GetAxis("Mouse X") * mouseSensitivity;
+		float rotLeftRight = Input.GetAxis(p1orp2 + "Mouse X") * mouseSensitivity;
 		myTransform.Rotate(0, rotLeftRight, 0);
 
 		//Vertical rotation
-		verticalRotation -= Input.GetAxis("Mouse Y") * mouseSensitivity;
+		verticalRotation -= Input.GetAxis(p1orp2 + "Mouse Y") * mouseSensitivity;
 		verticalRotation = Mathf.Clamp(verticalRotation, -upDownRange, upDownRange);
-		Camera.main.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+		myCam.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
 
 		// Movement
-		float forwardSpeed = Input.GetAxis("Vertical") * currentMove;
-		float sideSpeed = Input.GetAxis("Horizontal") * currentMove;
+		float forwardSpeed = Input.GetAxis(p1orp2 + "Vertical") * currentMove;
+		float sideSpeed = Input.GetAxis(p1orp2 + "Horizontal") * currentMove;
 
 		//Fixing diagonal movement
-		if (Input.GetAxisRaw ("Horizontal") > 0 && Input.GetAxisRaw ("Vertical") > 0) {
+		if (Input.GetAxisRaw (p1orp2 + "Horizontal") > 0 && Input.GetAxisRaw (p1orp2 + "Vertical") > 0) {
 			currentMove = diagMovementSpeed;
-		} else if (Input.GetAxisRaw ("Horizontal") > 0 && Input.GetAxisRaw ("Vertical") < 0) {
+		} else if (Input.GetAxisRaw (p1orp2 + "Horizontal") > 0 && Input.GetAxisRaw (p1orp2 + "Vertical") < 0) {
 			currentMove = diagMovementSpeed;
-		} else if (Input.GetAxisRaw ("Horizontal") < 0 && Input.GetAxisRaw ("Vertical") < 0) {
+		} else if (Input.GetAxisRaw (p1orp2 + "Horizontal") < 0 && Input.GetAxisRaw (p1orp2 + "Vertical") < 0) {
 			currentMove = diagMovementSpeed;
-		} else if (Input.GetAxisRaw ("Horizontal") < 0 && Input.GetAxisRaw ("Vertical") > 0) {
+		} else if (Input.GetAxisRaw (p1orp2 + "Horizontal") < 0 && Input.GetAxisRaw (p1orp2 + "Vertical") > 0) {
 			currentMove = diagMovementSpeed;
 		} else {
 			currentMove = movementSpeed;
 		}
 
 		//Applying gravity to the controller
-		verticalVelocity += Physics.gravity.y * Time.deltaTime * 2;
+		verticalVelocity += Physics.gravity.y * Time.deltaTime * 4;
 
 		//Jumping
-		if(characterController.isGrounded && Input.GetButton("Jump") ) {
+		if(characterController.isGrounded && Input.GetAxis(p1orp2 + "Jump") == 1) {
 			verticalVelocity = jumpSpeed;
 		}
 

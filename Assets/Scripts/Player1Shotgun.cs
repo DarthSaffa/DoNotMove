@@ -16,6 +16,8 @@ public class Player1Shotgun : MonoBehaviour {
 	float fireRate = 0.4f;
 	float nextFire = 0;
 
+	public string p1orp2; 
+
 	// Use this for initialization
 	void Start () {
 

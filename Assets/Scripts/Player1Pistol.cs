@@ -18,20 +18,23 @@ public class Player1Pistol : MonoBehaviour {
 	float myLineCurrentCooldown = 0;
 	float myLineMaxCooldown = 0.075f;
 	GameObject barrel;
+	public string barrelName;
+
+	public string p1orp2;
 
 	// Use this for initialization
 	void Start () {
 
 		myTransform = transform;
 		myLine = GetComponent<LineRenderer>();
-		barrel = GameObject.Find ("Barrel");
+		barrel = GameObject.Find (barrelName);
 	}
 
 	// Update is called once per frame
 	void Update () {
 
 		//Firing the raycast
-		if(Input.GetButtonDown("Shoot")){
+		if(Input.GetButtonDown(p1orp2 + "Shoot")){
 			myLineCurrentCooldown = myLineMaxCooldown;
 
 			//Accuracy
