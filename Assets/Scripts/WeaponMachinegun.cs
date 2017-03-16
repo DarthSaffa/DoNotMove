@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player1Machinegun : MonoBehaviour {
+public class WeaponMachinegun : MonoBehaviour {
 
 	Transform myTransform;
 	RaycastHit hit;
@@ -21,6 +21,9 @@ public class Player1Machinegun : MonoBehaviour {
 	float myLineCurrentCooldown = 0;
 	float myLineMaxCooldown = 0.05f;
 	GameObject barrel;
+	public string barrelName;
+
+	public string p1orp2;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +31,7 @@ public class Player1Machinegun : MonoBehaviour {
 		//Memes
 		myTransform = transform;
 		myLine = GetComponent<LineRenderer>();
-		barrel = GameObject.Find ("Barrel");
+		barrel = GameObject.Find (barrelName);
 	
 	}
 
@@ -36,7 +39,7 @@ public class Player1Machinegun : MonoBehaviour {
 	void Update () {
 
 		//Firing the raycast
-		if(Input.GetButton("Shoot") && Time.time > nextFire){
+		if(Input.GetAxis(p1orp2 + "Shoot") == 1 && Time.time > nextFire){
 			myLineCurrentCooldown = myLineMaxCooldown;
 			nextFire = Time.time + fireRate;
 			//Accuracy
@@ -47,6 +50,11 @@ public class Player1Machinegun : MonoBehaviour {
 
 			//Firing the raycast
 			if(Physics.Raycast(myTransform.position, myTransform.TransformDirection(direction), out hit, maxDist)){
+
+                //Destroying target
+                if (hit.collider.name == "P1Graphic" || hit.collider.name == "P2Graphic") {     
+                    Destroy(hit.collider.gameObject.transform.parent.gameObject);
+                }
 
 				//Instantiating the bullethole
 				Instantiate(bulletHole, hit.point + (hit.normal * distanceFromWall), Quaternion.LookRotation(hit.normal));

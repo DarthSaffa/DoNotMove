@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player1Shotgun : MonoBehaviour {
+public class WeaponShotgun : MonoBehaviour {
 
 	Transform myTransform;
 	RaycastHit hit;
@@ -15,6 +15,8 @@ public class Player1Shotgun : MonoBehaviour {
 	float accuracy = 0.2f;
 	float fireRate = 0.4f;
 	float nextFire = 0;
+
+	public string p1orp2; 
 
 	// Use this for initialization
 	void Start () {
@@ -41,8 +43,13 @@ public class Player1Shotgun : MonoBehaviour {
 				//Firing the raycast
 				if(Physics.Raycast(myTransform.position, myTransform.TransformDirection(direction), out hit, maxDist)){
 
-					//Instantiating the bullethole
-					Instantiate(bulletHole, hit.point + (hit.normal * distanceFromWall), Quaternion.LookRotation(hit.normal));
+                    //Destroying target
+                    if (hit.collider.name == "P1Graphic" || hit.collider.name == "P2Graphic") {
+                        Destroy(hit.collider.gameObject.transform.parent.gameObject);
+                    }
+
+                    //Instantiating the bullethole
+                    Instantiate(bulletHole, hit.point + (hit.normal * distanceFromWall), Quaternion.LookRotation(hit.normal));
 				}
 			}
 		}

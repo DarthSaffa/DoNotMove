@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player1Pistol : MonoBehaviour {
+public class WeaponPistol : MonoBehaviour {
 
 	Transform myTransform;
 	RaycastHit hit;
@@ -18,20 +18,23 @@ public class Player1Pistol : MonoBehaviour {
 	float myLineCurrentCooldown = 0;
 	float myLineMaxCooldown = 0.075f;
 	GameObject barrel;
+	public string barrelName;
+
+	public string p1orp2;
 
 	// Use this for initialization
 	void Start () {
 
 		myTransform = transform;
 		myLine = GetComponent<LineRenderer>();
-		barrel = GameObject.Find ("Barrel");
+		barrel = GameObject.Find (barrelName);
 	}
 
 	// Update is called once per frame
 	void Update () {
 
 		//Firing the raycast
-		if(Input.GetButtonDown("Shoot")){
+		if(Input.GetButtonDown(p1orp2 + "Shoot")){
 			myLineCurrentCooldown = myLineMaxCooldown;
 
 			//Accuracy
@@ -43,8 +46,13 @@ public class Player1Pistol : MonoBehaviour {
 			//Firing the raycast
 			if(Physics.Raycast(myTransform.position, myTransform.TransformDirection(direction), out hit, maxDist)){
 
-				//Instantiating the bullethole
-				Instantiate(bulletHole, hit.point + (hit.normal * distanceFromWall), Quaternion.LookRotation(hit.normal));
+                //Destroying target
+                if (hit.collider.name == "P1Graphic" || hit.collider.name == "P2Graphic") {
+                    Destroy(hit.collider.gameObject.transform.parent.gameObject);
+                }
+
+                //Instantiating the bullethole
+                Instantiate(bulletHole, hit.point + (hit.normal * distanceFromWall), Quaternion.LookRotation(hit.normal));
 			}
 		}
 
