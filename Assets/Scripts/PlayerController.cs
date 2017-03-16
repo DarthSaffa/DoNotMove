@@ -20,8 +20,11 @@ public class PlayerController : MonoBehaviour {
 	public string p1orp2;
 
 	GameObject myCam;
+<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
 
     int gravityScale = 4;
+=======
+>>>>>>> origin/master:Assets/Scripts/Player1Controller.cs
 	
 	// Use this for initialization
 	void Start () {
@@ -70,7 +73,11 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		//Applying gravity to the controller
+<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
 		verticalVelocity += Physics.gravity.y * Time.deltaTime * gravityScale;
+=======
+		verticalVelocity += Physics.gravity.y * Time.deltaTime * 4;
+>>>>>>> origin/master:Assets/Scripts/Player1Controller.cs
 
 		//Jumping
 		if(characterController.isGrounded && Input.GetAxis(p1orp2 + "Jump") == 1) {
